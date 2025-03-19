@@ -12,7 +12,7 @@ from plotly import graph_objs as go
 START = "2015-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
 
-st.title("Stock Prediction App (Test version just for ethan)")
+st.title("Stock Prediction App (Test version)")
 
 stocks = ("AAPL", "GOOG","MSFT", "^FTSE", "TSLA", "BTC-USD", "NVDA")
 
@@ -46,8 +46,7 @@ plot_raw_data()
 # Forecasting of the data
 df_train = data[['Date', 'Close']]
 df_train = df_train.rename(columns = {"Date": "ds", "Close": "y"})
-df_train['y'] = pd.to_numeric(df_train['y'], errors='coerce')  # Convert to numeric, set errors to NaN
-df_train = df_train.dropna()  # Remove missing values
+
 
 m = Prophet()
 m.fit(df_train)
