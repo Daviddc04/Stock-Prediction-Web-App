@@ -3,7 +3,8 @@ from datetime import date
 
 import yfinance as yf
 
-import prophet 
+import pandas as pd
+from prophet import Prophet
 from prophet.plot import plot_plotly
 from plotly import graph_objs as go
 
@@ -46,7 +47,7 @@ plot_raw_data()
 df_train = data[['Date', 'Close']]
 df_train = df_train.rename(columns = {"Date": "ds", "Close": "y"})
 
-m = prophet()
+m = Prophet()
 m.fit(df_train)
 future = m.make_future_data_frame(periods = period)
 forecast = m.predict(future)
