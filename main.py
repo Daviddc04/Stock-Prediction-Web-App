@@ -3,7 +3,6 @@ from datetime import date
 
 import yfinance as yf
 
-import pandas as pd
 from prophet import Prophet
 from prophet.plot import plot_plotly
 from plotly import graph_objs as go
@@ -21,7 +20,7 @@ selected_stock = st.selectbox("Select dataset for prediction", stocks)
 n_years = st.slider("Years of Prediction:", 1 , 4)
 period = n_years * 365
 
-@st.cache  # cache data of stock
+@st.cache_data  # cache data of stock
 def load_data(ticker):
     data = yf.download(ticker,START,TODAY) # already in panda
     data.reset_index(inplace=True) # place data in very first column
