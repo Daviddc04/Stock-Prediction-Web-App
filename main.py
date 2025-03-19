@@ -3,6 +3,7 @@ from datetime import date
 
 import yfinance as yf
 
+import pandas as pd
 from prophet import Prophet
 from prophet.plot import plot_plotly
 from plotly import graph_objs as go
@@ -45,6 +46,8 @@ plot_raw_data()
 # Forecasting of the data
 df_train = data[['Date', 'Close']]
 df_train = df_train.rename(columns = {"Date": "ds", "Close": "y"})
+df_train['y'] = pd.to_numeric(df_train['y'], errors='coerce')  # Convert to numeric, set errors to NaN
+df_train = df_train.dropna()  # Remove missing values
 
 m = Prophet()
 m.fit(df_train)
